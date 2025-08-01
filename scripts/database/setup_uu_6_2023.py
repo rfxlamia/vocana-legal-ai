@@ -5,7 +5,6 @@ Vocana UU 6/2023 ChromaDB Comprehensive Setup - Production Ready
 
 Mission: Professional-grade ChromaDB setup for Vocana MVP
 Target: 90%+ performance with 71 UU 6/2023 articles
-Path: D:\project\vocana_db\vocana_chroma_db\
 Version: Comprehensive (600+ lines)
 
 Features:
@@ -36,7 +35,7 @@ import traceback
 # CONFIGURATION & CONSTANTS
 # ============================================================
 
-CHROMADB_PATH = r"D:\project\vocana_db\vocana_chroma_db"
+CHROMADB_PATH = r"path_for_vocana_db"
 COLLECTION_NAME = "vocana_uu6_2023_comprehensive"
 BASELINE_SUCCESS_RATE = 71.4  # From previous testing
 MVP_THRESHOLD = 85.0  # Minimum success rate for MVP readiness
