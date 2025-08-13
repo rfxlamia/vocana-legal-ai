@@ -1,0 +1,151 @@
+# UU 6/2023 Cipta Kerja Import Script
+
+## Overview
+Comprehensive import script for UU 6/2023 (Cipta Kerja) employment law changes into ChromaDB vector database. Processes all 71 legal amendments with proper categorization and metadata for RAG (Retrieval-Augmented Generation) systems.
+
+## Features
+- ✅ **Complete Coverage**: Imports all 71 employment law changes
+- 🔄 **Amendment Types**: Categorizes changes as `diubah`, `dihapus`, or `disisipkan`
+- 🎯 **Cross-References**: Links changes to original UU 13/2003 articles
+- 🏷️ **Rich Metadata**: Comprehensive tagging for legal concepts
+- 🌏 **UTF-8 Support**: Full emoji support for better terminal readability
+- 📊 **Progress Tracking**: Real-time import progress with statistics
+
+## Legal Coverage
+- **Total Changes**: 71 comprehensive amendments
+- **Amendment Breakdown**:
+  - 🔄 **28 modified** (diubah)
+  - ❌ **36 deleted** (dihapus) 
+  - ➕ **7 inserted** (disisipkan)
+- **Word Count**: ~61,000 words of legal content
+
+## Technical Details
+
+### Requirements
+```python
+chromadb>=0.4.0
+python>=3.8
+```
+
+### Database Structure
+- **Collection**: `vocana_legal_uu6_2023_complete`
+- **Document Format**: Structured legal text with metadata
+- **ID Pattern**: `uu6_2023_change_{number}`
+
+### Metadata Schema
+```python
+{
+    'pasal_number': str,        # Article number (e.g., "13", "14A")
+    'change_number': str,       # Sequential change number (1-71)
+    'amendment_type': str,      # diubah/dihapus/disisipkan
+    'regulation': str,          # "UU 6/2023"
+    'category': str,            # "employment_law"
+    'subcategory': str,         # "cipta_kerja_amendments"
+    'word_count': str,          # Document length
+    'hierarchy_level': str,     # "1" (UU level)
+    'legal_concepts': str,      # Comma-separated concepts
+    'cross_reference': str      # Reference to original UU 13/2003
+}
+```
+
+### Legal Concept Extraction
+Automatically detects and tags legal concepts:
+- `kontrak_kerja` - Employment contracts (PKWT/PKWTT)
+- `pengupahan` - Wages and compensation
+- `phk` - Termination of employment
+- `jam_kerja` - Working hours and overtime
+- `pekerja_asing` - Foreign workers
+- `serikat_pekerja` - Labor unions
+- `keselamatan_kerja` - Occupational safety (K3)
+- `pelatihan` - Training and competency
+- `perselisihan` - Labor disputes
+- `jaminan_sosial` - Social security
+
+## Usage
+
+### Basic Import
+```python
+python import_uu6_2023_cipta_kerja.py
+```
+
+### Integration Example
+```python
+from import_uu6_2023_cipta_kerja import parse_uu6_changes, get_db_path
+import chromadb
+
+# Initialize database
+client = chromadb.PersistentClient(path=get_db_path())
+collection = client.get_collection("vocana_legal_uu6_2023_complete")
+
+# Query example
+results = collection.query(
+    query_texts=["pemutusan hubungan kerja"],
+    n_results=5,
+    where={"amendment_type": "diubah"}
+)
+```
+
+### Sample Output
+```
+🚀 UU 6/2023 COMPLETE 71-CHANGES IMPORT
+=======================================
+📋 Parsing UU 6/2023 comprehensive changes...
+📊 Raw content length: 465,316 characters
+📊 Found 71 changes to parse
+✅ Successfully parsed 71 comprehensive changes
+
+📋 PROCESSING 71 CHANGES:
+============================================================
+🔄 ( 1) Pasal Change_1 | diubah     |  532 words
+🔄 ( 2) Pasal Change_2 | diubah     |  423 words
+🔄 ( 3) Pasal Change_3 | diubah     | 2009 words
+❌ ( 5) Pasal Change_5 | dihapus    |  758 words
+...
+```
+
+## File Structure
+```
+public_repo/
+├── import_uu6_2023_cipta_kerja.py  # Main import script
+├── README_import_uu6_2023.md       # This documentation
+└── chroma_db/                      # ChromaDB storage (auto-created)
+    ├── chroma.sqlite3
+    └── [collection files]
+```
+
+## Error Handling
+- ✅ Validates content format before processing
+- ✅ Handles missing pasal numbers gracefully
+- ✅ Provides detailed progress feedback
+- ✅ UTF-8 encoding for Windows compatibility
+
+## Performance
+- **Processing Time**: ~30-60 seconds for 71 changes
+- **Memory Usage**: ~50-100MB during import
+- **Storage**: ~5MB ChromaDB collection
+- **Batch Processing**: 10 documents per batch for optimal performance
+
+## RAG Integration
+Perfect for legal RAG systems with:
+- **Semantic Search**: Find relevant employment law changes
+- **Contextual Retrieval**: Cross-reference with UU 13/2003
+- **Amendment Tracking**: Historical legal changes
+- **Concept-based Search**: Query by legal concepts
+
+## Version History
+- **v1.0**: Complete 71-change import with full metadata
+- **v1.1**: Added legal concept extraction
+- **v1.2**: Enhanced cross-referencing with UU 13/2003
+
+## License
+Open source - Indonesian Employment Law Database
+
+## Contributing
+When contributing, ensure:
+1. All 71 changes are properly imported
+2. Metadata follows the established schema
+3. Legal concepts are accurately extracted
+4. UTF-8 encoding is maintained for emoji support
+
+---
+*Generated by Vocana Legal AI System - Indonesian Employment Law Database*
