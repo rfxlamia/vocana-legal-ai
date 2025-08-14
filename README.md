@@ -79,7 +79,7 @@ pip install chromadb>=0.4.0
 ### Quick Start
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/vocana-legal-ai.git
+git clone https://github.com/rfxlamia/vocana-legal-ai.git
 cd vocana-legal-ai
 
 # Install dependencies
